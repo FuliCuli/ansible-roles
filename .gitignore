@@ -1,0 +1,25 @@
+# IDE files
+.buildpath
+.project
+.settings
+.idea
+nbproject/
+*.sublime-*
+
+# Log files
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

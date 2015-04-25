@@ -1,7 +1,13 @@
 ---
 
-- name: Change release folder
-  file: src={{ site_directory_version }} dest={{ site_directory_root }}/{{ site_release }} owner={{ site_user }} group={{ site_group }} state=link
-  when: site_release != "false" and site_release != false
+- name: Change release folder with rights
+  file: src={{ site_directory_version }} dest={{ site_directory_root }}/{{ site_release }} owner={{ site_user }} group={{ site_group }} state=link force=yes
+  when: site_release != "false" and site_release != false and env != 'dev'
+  tags:
+    - website
+
+- name: Change release folder without rights
+  file: src={{ site_directory_version }} dest={{ site_directory_root }}/{{ site_release }} state=link force=yes
+  when: site_release != "false" and site_release != false and env == 'dev'
   tags:
     - website

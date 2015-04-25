@@ -1,7 +1,14 @@
 ---
 
-- name: Create website directory
-  file: dest={{ site_directory_root }} owner={{ site_user }} group={{ site_group }} mode=0775 state=directory
+- name: Create website directory with rights
+  file: dest={{ site_directory_root }} owner={{ site_user }} group={{ site_group }} mode=0775 state=directory force=yes
+  when: env != 'dev'
+  tags:
+    - website
+
+- name: Create website directory without rights
+  file: dest={{ site_directory_root }} state=directory force=yes
+  when: env == 'dev'
   tags:
     - website
 

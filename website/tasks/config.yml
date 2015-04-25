@@ -27,3 +27,10 @@
   when: current.ssl.key is defined
   tags:
     - website
+
+- name: Add php conf file
+  template: src=../../../php/{{ name }}.conf.j2 dest=/etc/php5/fpm/pool.d/{{ name }}.conf owner=root mode=644
+  notify: restart php-fpm
+  when: current.php is defined
+  tags:
+    - website

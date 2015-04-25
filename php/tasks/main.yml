@@ -1,0 +1,48 @@
+---
+
+- name: Install php-fpm
+  apt: name=php5-fpm state=latest update_cache=true
+  tags:
+    - webserver
+    - php
+    - php-fpm
+
+- name: Install php-cli
+  apt: name=php5-cli state=latest update_cache=true
+  tags:
+    - webserver
+    - php
+    - php-cli
+
+- name: Install mongo extension
+  apt: name=php5-mongo state=latest update_cache=true
+  tags:
+    - webserver
+    - php
+    - php-cli
+
+- name: Remove php-cli configuration
+  command: mv /etc/php5/cli/php.ini /etc/php5/cli/php.ini.basic
+  args:
+    removes: /etc/php5/cli/php.ini
+  tags:
+    - webserver
+    - php
+    - php-cli
+
+- name: Link php-cli to php-fpm configuration
+  command: ln -s /etc/php5/fpm/php.ini /etc/php5/cli/php.ini
+  args:
+    creates: /etc/php5/cli/php.ini
+  tags:
+    - webserver
+    - php
+    - php-cli
+
+- name: Active mongo extension
+  copy: src=mongo.ini dest=/etc/php.d/
+  ignore_errors: yes
+  notify: restart php-fpm
+  tags:
+    - mongodb
+    - php

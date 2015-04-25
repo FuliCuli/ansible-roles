@@ -6,12 +6,12 @@
     - mariadb
 
 - name: Add mariadb key
-  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
+  apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
   tags:
     - mariadb
 
 - name: Add mariadb repository
-  apt_repository: repo='deb http://mirror.timeweb.ru/mariadb/repo/10.0/ubuntu precise main' update_cache=yes
+  apt_repository: repo='deb http://mirror.stshosting.co.uk/mariadb/repo/10.0/debian wheezy main' update_cache=yes
   tags:
     - mariadb
 

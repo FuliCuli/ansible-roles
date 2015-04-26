@@ -14,9 +14,26 @@
     - php
     - php-cli
 
-- name: Install mongo extension
-  apt: name=php5-mongo state=latest update_cache=true
-  tags:
+- name: Install php packages
+  apt: name={{ item }} state=latest update_cache=true
+  with_items:
+    - php5-common
+    - php5-curl 
+    - php5-dev 
+    - php5-gd 
+    - php5-imagick 
+    - php5-mcrypt 
+    - php5-memcache 
+    - php5-mysql 
+    - php5-mongo
+    - php5-pspell 
+    - php5-snmp 
+    - php5-sqlite 
+    - php5-xmlrpc 
+    - php5-xsl 
+    - php-pear 
+    - libssh2-php
+  tags: 
     - webserver
     - php
     - php-cli

@@ -1,7 +1,28 @@
 ---
 
-- name: Add oracle repository
-  apt_repository: repo='ppa:webupd8team/java' update_cache=yes
+# - name: Add oracle repository
+#   apt_repository: repo='ppa:webupd8team/java' update_cache=yes
+#   tags:
+#     - java
+
+# - name: Autoaccept license for Java
+#   action: shell echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+#   tags:
+#     - java
+
+# - name: Install oracle package
+#   apt: name=oracle-java7-installer state=latest update_cache=yes
+#   tags:
+#     - java
+
+
+- name: Add java repository
+  apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main' state=present
+  tags:
+    - java
+
+- name: Import public key
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=EEA14886
   tags:
     - java
 
@@ -10,7 +31,7 @@
   tags:
     - java
 
-- name: Install oracle package
-  apt: name=oracle-java7-installer state=latest update_cache=yes
+- name: Install java
+  apt: name=oracle-java7-installer state=latest update_cache=true
   tags:
     - java

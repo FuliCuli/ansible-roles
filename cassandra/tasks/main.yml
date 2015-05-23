@@ -1,0 +1,17 @@
+---
+
+- name: Add cassandra repository
+  apt_repository: repo='deb http://www.apache.org/dist/cassandra/debian 21x main' state=present
+  tags:
+    - cassandra
+
+- name: Import public key
+  apt_key: keyserver=pgp.mit.edu id=F758CE318D77295D
+  apt_key: keyserver=pgp.mit.edu id=2B5C1B00
+  tags:
+    - cassandra
+
+- name: Install cassandra
+  apt: name=cassandra state=latest update_cache=true force=yes
+  tags:
+    - cassandra

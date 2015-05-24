@@ -1,16 +1,32 @@
 ---
 
-- name: Download deb file
-  get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb dest=/tmp/elasticsearch-0.90.7.deb
+# - name: Download deb file
+#   get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb dest=/tmp/elasticsearch-0.90.7.deb
+#   tags:
+#     - elasticsearch
+
+# - name: Install package
+#   apt: deb=/tmp/elasticsearch-0.90.7.deb
+#   tags:
+#     - elasticsearch
+
+# - name: Start elasticsearch
+#   service: name=elasticsearch state=started enabled=yes
+#   tags:
+#     - elasticsearch
+
+- name: Add elasticsearch repository
+  apt_repository: repo='deb http://packages.elastic.co/elasticsearch/1.5/debian stable main' state=present
   tags:
     - elasticsearch
 
-- name: Install package
-  apt: deb=/tmp/elasticsearch-0.90.7.deb
+- name: Import public key
+  # command: wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+  apt_key: url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
   tags:
     - elasticsearch
 
-- name: Start elasticsearch
-  service: name=elasticsearch state=started enabled=yes
+- name: Install elasticsearch
+  apt: name=elasticsearch state=latest update_cache=true
   tags:
     - elasticsearch

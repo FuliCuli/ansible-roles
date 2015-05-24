@@ -30,3 +30,14 @@
   apt: name=elasticsearch state=latest update_cache=true
   tags:
     - elasticsearch
+
+- name: Add init.d file
+  copy: src=elasticsearch dest=/etc/init.d/elasticsearch mode=0755
+  tags:
+    - elasticsearch
+
+- name: Start elasticsearch
+  command: /etc/init.d/elasticsearch restart
+  sudo: yes
+  tags:
+    - elasticsearch
